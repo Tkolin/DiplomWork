@@ -59,6 +59,7 @@ namespace ShiraRDKWork
                 case 1:
                     versteckBtn.Visibility = Visibility.Visible;
                     ticketBtn.Visibility = Visibility.Visible;
+                    itemBtn.Visibility = Visibility.Visible;
                     userBtn.Visibility = Visibility.Visible;
                     enevtBtn.Visibility = Visibility.Visible;
                     break;
@@ -71,8 +72,14 @@ namespace ShiraRDKWork
                     break;
                 case 4:
                     versteckBtn.Visibility = Visibility.Visible;
+                    itemBtn.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void itemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ItemPage(role));
         }
     }
 }

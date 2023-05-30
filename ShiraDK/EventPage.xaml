@@ -5,46 +5,143 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ShiraRDKWork"
       mc:Ignorable="d" 
-  d:DesignHeight="700" d:DesignWidth="1200"
+  d:DesignHeight="640" d:DesignWidth="1200"
       Title="EventPage"
       Loaded="Page_Loaded">
-    <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <DataGrid Margin="15" Height="260" x:Name="dataGrid" AutoGenerateColumns="False" IsReadOnly="True">
-                <DataGrid.Columns>
-                   
-                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="3*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата начала" Binding="{Binding DateStart}" Width="3*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Продолжительность (мин)" Binding="{Binding Duration}" Width="2*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="1.5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Организатор" Binding="{Binding Organizers.Name}" Width="3*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Кол-во мест всего" Binding="{Binding NumberOfSeats}" Width="4*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Осталось" Binding="{Binding AvailableOfSeats}" Width="2*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Margin="35,0,35,0" Orientation="Horizontal" x:Name="CRUDpanel">
-                <Button Padding="10,0,10,0" Margin="2" x:Name="deletBtn" Click="deletBtn_Click">Удалить</Button>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="addBtn" Click="addBtn_Click">Добавить новую запись</Button>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="editBtn" Click="editBtn_Click">Редактировать</Button>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="editItemForEventBtn" Click="editItemForEventBtn_Click">Редактировать инвентарь</Button>
+    <Grid Margin="0,20,0,0">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+                    <Setter Property="Width" Value="200"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid x:Name="grid">
+                                    <Border x:Name="border" CornerRadius="2" BorderBrush="#2D2D2C" 
+                                            BorderThickness="2" Background="#ECDCC8" Padding="0,1,0,1">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                        </ContentPresenter>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#2D2D2C"/>
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF6B9668"/>
+                                        <Setter Property="Foreground" Value="#ECDCC8"/>
+                                        <Setter Property="BorderThickness" Value="5"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#FF6B9668"/>
+                                        <Setter Property="Foreground" Value="#2D2D2C"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="#2D2D2C" />
+                    <Setter Property="FontSize" Value="40" />
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="2.5"/>
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="Padding" Value="5,5,0,0"/>
+                    <Setter Property="Margin" Value="0,0,0,5"/>
+                </Style>
+                <Style TargetType="DatePicker">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="2.5"/>
+                    <Setter Property="FontFamily" Value="Inter"/>
+                </Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="2.5"/>
+                    <Setter Property="FontFamily" Value="Inter"/>
+                    <Setter Property="Padding" Value="5,5,0,0"/>
+
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="#2D2D2C" />
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="FontFamily" Value="Bahnschrift"/>
+                </Style>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+                    <Setter Property="Padding" Value="5,5,0,5"/>
+                </Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                    <Setter Property="AutoGenerateColumns" Value="False"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+
+                </Style>
+
+            </StackPanel.Resources>
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" x:Name="CRUDpanel" Margin="10,0,10,0">
+                    <Button Padding="10,0,10,0" Margin="2" Width="143" x:Name="deletBtn" Click="deletBtn_Click">Удалить</Button>
+                    <Button Padding="10,0,10,0" Margin="2" Width="230" x:Name="addBtn" Click="addBtn_Click">Добавить новую запись</Button>
+                    <Button Padding="10,0,10,0" Margin="2"  x:Name="editBtn" Click="editBtn_Click">Редактировать</Button>
+                    <Button Padding="10,0,10,0" Margin="2" Width="230" x:Name="editItemForEventBtn" Click="editItemForEventBtn_Click">Редактировать инвентарь</Button>
+                </StackPanel>
+                <Grid Background="#2D2D2C" Height="2.5"/>
+
+                <DataGrid Margin="10" MinHeight="540" Width="900" x:Name="dataGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="2*"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding DateStart}" Width="1*"/>
+                        <DataGridTextColumn Header="Длительность" Binding="{Binding Duration}" Width="2*"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="2*"/>
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="1*"/>
+                        <DataGridTextColumn Header="Организатор" Binding="{Binding Organizers.Name}" Width="2*"/>
+                        <DataGridTextColumn Header="Мест" Binding="{Binding NumberOfSeats}" Width="1*"/>
+                        <DataGridTextColumn Header="Осталось" Binding="{Binding AvailableOfSeats}" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </StackPanel>
-            <StackPanel Margin="40,5,35,0" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center">Организация: </TextBlock>
-                <ComboBox x:Name="orginazerCbox" Width="140" Margin="10,0,10,0"       
-                                        ItemsSource="{Binding Organizers}"
-                                      DisplayMemberPath="Name"
-                                      SelectedItem="{Binding Organizers.ID}"></ComboBox>
-                <TextBlock VerticalAlignment="Center">В промежутке от:</TextBlock>
-                <DatePicker Margin="5,0,10,0" x:Name="startDatePicer"></DatePicker>
-                <TextBlock VerticalAlignment="Center">до:</TextBlock>
-                <DatePicker Margin="5,0,10,0" x:Name="endDatePicer"></DatePicker>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="searchBtn" Click="searchBtn_Click">Поиск</Button>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="cleanBtn" Click="cleanBtn_Click">Обновить</Button>
-            </StackPanel>
-            <StackPanel Margin="40,5,35,0" Orientation="Horizontal">
-                <TextBlock  VerticalAlignment="Center">Название мероприятия:</TextBlock>
-                <TextBox Margin="5" Width="200" x:Name="eventNameBox"></TextBox>
+            <StackPanel Orientation="Vertical"  MinWidth="270" Margin="0,80,0,0">
+                <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="25" Text="Фильтры" Margin="0,0,0,20"/>
+                <TextBlock   Text="Название мероприятия:"/>
+                <TextBox   x:Name="eventNameBox"/>
+                <TextBlock  Text="Организация:"/>
+                <ComboBox x:Name="orginazerCbox"     
+                                          ItemsSource="{Binding Organizers}"
+                                          DisplayMemberPath="Name"
+                                          SelectedItem="{Binding Organizers.ID}"/>
+                <TextBlock Text="В промежутке от:" />
+                <DatePicker x:Name="startDatePicer" Width="270"  />
+                <TextBlock Text="до:"/>
+                <DatePicker  x:Name="endDatePicer" Width="270" />
+
+
+                <Button x:Name="cleanBtn" Click="cleanBtn_Click" Content="Сбросить" Margin="3,30,3,3"/>
+
             </StackPanel>
         </StackPanel>
     </Grid>

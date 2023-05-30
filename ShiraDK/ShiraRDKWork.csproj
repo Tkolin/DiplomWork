@@ -88,6 +88,9 @@
     <Compile Include="AddEditEventPage.xaml.cs">
       <DependentUpon>AddEditEventPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddEditItemPage.xaml.cs">
+      <DependentUpon>AddEditItemPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEditTicketPage.xaml.cs">
       <DependentUpon>AddEditTicketPage.xaml</DependentUpon>
     </Compile>
@@ -130,10 +133,10 @@
     <Compile Include="Item.cs">
       <DependentUpon>BDEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="ItemsForEvent.cs">
-      <DependentUpon>BDEntities.tt</DependentUpon>
+    <Compile Include="ItemPage.xaml.cs">
+      <DependentUpon>ItemPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Landing.cs">
+    <Compile Include="ItemsForEvent.cs">
       <DependentUpon>BDEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="MenyPage.xaml.cs">
@@ -170,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddEditItemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddEditTicketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEditItemForEventPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ItemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -54,8 +54,8 @@ namespace ShiraRDKWork
             }
             try
             {
-                _event.AvailableOfSeats = Convert.ToInt32(countTBox.Text);
-                _event.NumberOfSeats = Convert.ToInt32(countTBox.Text);
+                _event.AvailableOfSeat = Convert.ToInt32(countTBox.Text);
+                _event.NumberOfSeat = Convert.ToInt32(countTBox.Text);
                 _event.Name = eventNameTBox.Text;
                 _event.DateStart = (DateTime)startTimeDatePicer.SelectedDate;
                 _event.Description = DescriptionTBox.Text;

@@ -14,12 +14,6 @@ namespace ShiraRDKWork
     
     public partial class BuyingTicket
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BuyingTicket()
-        {
-            this.Landings = new HashSet<Landing>();
-        }
-    
         public int Number { get; set; }
         public System.DateTime PurchaseDate { get; set; }
         public int SalesmanID { get; set; }
@@ -30,7 +24,5 @@ namespace ShiraRDKWork
         public virtual Event Event { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Landing> Landings { get; set; }
     }
 }

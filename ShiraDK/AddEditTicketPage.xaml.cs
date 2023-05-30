@@ -47,9 +47,9 @@ namespace ShiraRDKWork
                 return;
             }
             //Проверяем оставшиеся места
-            if (((Event)eventCBox.SelectedItem).AvailableOfSeats.Value < Convert.ToInt32(countTBox.Text) || 
-                ((Event)eventCBox.SelectedItem).AvailableOfSeats == null ||
-                ((Event)eventCBox.SelectedItem).AvailableOfSeats == 0)
+            //if (((Event)eventCBox.SelectedItem).AvailableOfSeats.Value < Convert.ToInt32(countTBox.Text) || 
+            //    ((Event)eventCBox.SelectedItem).AvailableOfSeats == null ||
+            //    ((Event)eventCBox.SelectedItem).AvailableOfSeats == 0)
             {
                 MessageBox.Show("Мест не хватает!");
                 return;
@@ -62,7 +62,7 @@ namespace ShiraRDKWork
                 _ticet.BuyerID = ((User)buyerCBox.SelectedItem).ID;
                 _ticet.EventID = ((Event)eventCBox.SelectedItem).ID;
                 Event evt = (Event)eventCBox.SelectedItem;
-                evt.AvailableOfSeats -= Convert.ToInt32(countTBox.Text);
+                //evt.AvailableOfSeats -= Convert.ToInt32(countTBox.Text);
                 _ticet.Count = Convert.ToInt32(countTBox.Text);
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace ShiraRDKWork
             buyerCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
             eventCBox.ItemsSource = DBEntities.GetContext().Events
                 .Where(d=>d.DateStart >= DateTime.Now)
-                 .Where(d => d.AvailableOfSeats > 0)
+                 //.Where(d => d.AvailableOfSeats > 0)
                 .ToList();
             if(eventCBox.Items.Count == 0)
             {

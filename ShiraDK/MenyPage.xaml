@@ -73,11 +73,12 @@
                 </Style>
             </StackPanel.Resources>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center">
-                <Label Margin="10" Width="300" HorizontalContentAlignment="Center" FontWeight="Bold">Меню</Label>
-                <Button  Name="versteckBtn" Click="versteckBtn_Click">Склад</Button>
-                <Button  Name="ticketBtn" Click="ticketBtn_Click" >Продажа билетов</Button>
-                <Button  Name="userBtn" Click="userBtn_Click" >Пользователи</Button>
-                <Button  Name="enevtBtn" Click ="enevtBtn_Click" >Мероприятия</Button>
+                <Label Margin="10" Width="300" HorizontalContentAlignment="Center" FontWeight="Bold" Content="Меню"/>
+                <Button  Name="itemBtn" Click="itemBtn_Click" Content="Список инвентаря"/>
+                <Button  Name="versteckBtn" Click="versteckBtn_Click" Content="Оборот инвентаря"/>
+                <Button  Name="ticketBtn" Click="ticketBtn_Click" Content="Продажа билетов"/>
+                <Button  Name="userBtn" Click="userBtn_Click" Content="Пользователи "/>
+                <Button  Name="enevtBtn" Click ="enevtBtn_Click" Content="Мероприятия"/>
             </StackPanel>
 
 

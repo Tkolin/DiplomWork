@@ -28,8 +28,8 @@ namespace ShiraRDKWork
         public string Description { get; set; }
         public int OrganizerID { get; set; }
         public Nullable<double> Price { get; set; }
-        public Nullable<int> NumberOfSeats { get; set; }
-        public Nullable<int> AvailableOfSeats { get; set; }
+        public Nullable<int> AvailableOfSeat { get; set; }
+        public Nullable<int> NumberOfSeat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuyingTicket> BuyingTickets { get; set; }

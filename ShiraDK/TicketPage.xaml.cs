@@ -203,5 +203,10 @@ namespace ShiraRDKWork
                 return;
             }
         }
+
+        private void cleanBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

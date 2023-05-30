@@ -20,7 +20,7 @@ namespace ShiraRDKWork
         public Nullable<int> Quantity { get; set; }
         public int UserID { get; set; }
     
-        public virtual Item Item { get; set; }
         public virtual User User { get; set; }
+        public virtual Item Item { get; set; }
     }
 }

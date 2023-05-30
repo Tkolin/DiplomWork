@@ -33,13 +33,12 @@ namespace ShiraRDKWork
         }
         public virtual DbSet<BuyingTicket> BuyingTickets { get; set; }
         public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemsForEvent> ItemsForEvents { get; set; }
-        public virtual DbSet<Landing> Landings { get; set; }
         public virtual DbSet<Organizer> Organizers { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
     }
 }
