@@ -113,11 +113,13 @@
                                       DisplayMemberPath="Name"
                                       SelectedItem="{Binding Events.ID}"
                           SelectionChanged="eventCBox_SelectionChanged"></ComboBox>
-                <TextBlock FontStyle="Italic" FontSize="15" HorizontalAlignment="Center" 
-                           Text="{Binding ElementName=eventCBox, Path=SelectedItem.Price}">Стоимость одного билета:</TextBlock>
 
+  
+                <TextBlock FontStyle="Italic" FontSize="15" HorizontalAlignment="Center" x:Name="tickPriceTBlock">Стоимость одного билета:</TextBlock>
                 <TextBlock Margin="5,0,0,0">Кол-во билетов:</TextBlock>
-                <TextBox Margin="0,0,0,5" x:Name="countTBox" TextChanged="countTBox_TextChanged"></TextBox>
+                
+                <TextBox Margin="0,0,0,5" x:Name="countTBox" TextChanged="countTBox_TextChanged"/>
+                <TextBlock FontStyle="Italic" FontSize="15" x:Name="tBlockSeatsCount">Кол-во мест:</TextBlock>
                 <TextBlock FontStyle="Italic" FontSize="18" HorizontalAlignment="Center"  x:Name="priceTBlock">Сумма:</TextBlock>
                 <Button Width ="120" Margin="3" x:Name="saveBtn" Click="saveBtn_Click">Сохранить</Button>
 

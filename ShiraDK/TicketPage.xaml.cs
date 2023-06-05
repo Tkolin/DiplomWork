@@ -30,31 +30,39 @@ namespace ShiraRDKWork
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = DBEntities.GetContext().BuyingTickets.ToList();
+            DataGridUpdate();
+
+
+
             clientCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
+            clientCBox.DisplayMemberPath = "FirstName";
+
             sellerCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
+            sellerCBox.DisplayMemberPath = "FirstName";
+
         }
 
 
 
         private void deletBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<BuyingTicket> ClientForRemoving = dataGrid.SelectedItems.Cast<BuyingTicket>().ToList();
+            BuyingTicket selectedRow = dataGrid.SelectedItem as BuyingTicket;
 
-            if (MessageBox.Show($"Вы уверены? Удалится {ClientForRemoving.Count()} элемент(ов)?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Вы уверены?", "Внимание",
+            MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    DBEntities.GetContext().BuyingTickets.RemoveRange(ClientForRemoving);
+                    Event _event = selectedRow.Event;
+                    _event.AvailableOfSeat += selectedRow.Count;
+                    DBEntities.GetContext().BuyingTickets.Remove(selectedRow);
                     DBEntities.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены! ");
-                    dataGrid.ItemsSource = DBEntities.GetContext().BuyingTickets.ToList();
+                    DataGridUpdate();
 
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
@@ -80,31 +88,28 @@ namespace ShiraRDKWork
             endDatePicer.SelectedDate = null;
             sellerCBox.SelectedValue = null;
 
-            dataGrid.ItemsSource = DBEntities.GetContext().BuyingTickets.ToList();
+            DataGridUpdate();
         }
 
-        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        private void DataGridUpdate()
         {
-            if (clientCBox.SelectedValue == null &&
-                startDatePicer.SelectedDate == null &&
-                endDatePicer.SelectedDate == null &&
-                sellerCBox.SelectedValue == null)
-                 return;
 
             List<BuyingTicket> tickets = DBEntities.GetContext().BuyingTickets.ToList();
 
-            if (clientCBox.SelectedValue != null)
-                tickets = (List<BuyingTicket>)tickets.Where(eve => eve.User == (User)clientCBox.SelectedValue).ToList();
+            if (clientCBox.SelectedItem != null)
+                tickets = tickets.Where(eve => eve.User == (User)clientCBox.SelectedValue).ToList();
             if (startDatePicer.SelectedDate != null)
-                tickets = (List<BuyingTicket>)tickets.Where(eve => eve.PurchaseDate >= startDatePicer.SelectedDate).ToList();
+                tickets = tickets.Where(eve => eve.PurchaseDate >= startDatePicer.SelectedDate).ToList();
             if (endDatePicer.SelectedDate != null)
-                tickets = (List<BuyingTicket>)tickets.Where(eve => eve.PurchaseDate <= endDatePicer.SelectedDate).ToList();
-            if (sellerCBox.Text.Length > 0)
-                tickets = (List<BuyingTicket>)tickets.Where(eve => eve.User1 == (User)sellerCBox.SelectedValue).ToList();
+                tickets = tickets.Where(eve => eve.PurchaseDate <= endDatePicer.SelectedDate).ToList();
+            if (sellerCBox.SelectedItem != null)
+                tickets = tickets.Where(eve => eve.User1 == (User)sellerCBox.SelectedValue).ToList();
 
             dataGrid.ItemsSource = tickets.ToList();
         }
-
+        /// <summary>
+        /// Формирование отчётности
+        /// </summary>
         private void otchetBtn_Click(object sender, RoutedEventArgs e)
         {
             getOtchetTask(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
@@ -140,26 +145,26 @@ namespace ShiraRDKWork
             ws.Range["F4"].Value = "Сумма"; ws.Range["F4"].ColumnWidth = 10;
 
             List<BuyingTicket> bt = DBEntities.GetContext().BuyingTickets
-                .Where(t=>t.PurchaseDate >= start).ToList();
+            .Where(t => t.PurchaseDate >= start).ToList();
 
             int startPoint = 5;
             int point = startPoint;
             foreach (BuyingTicket t in bt)
             {
 
-                ws.Range["A"+ point].Value = point - 4;
+                ws.Range["A" + point].Value = point - 4;
                 ws.Range["B" + point].Value = t.Event.Name;
                 ws.Range["C" + point].Value = t.PurchaseDate;
                 ws.Range["D" + point].Value = t.Event.Price;
                 ws.Range["E" + point].Value = t.Count;
-                ws.Range["F" + point].Formula = "=D"+ point + "*E"+ point;
+                ws.Range["F" + point].Formula = "=D" + point + "*E" + point;
                 point++;
             }
 
 
-            ws.Range["B"+point].Value = "Итого:";
-            ws.Range["E"+point].Formula = "=СУММ(E"+startPoint+":E"+(point-1)+")";
-            ws.Range["F"+point].Formula = "=СУММ(F"+startPoint+":F"+(point-1)+")";
+            ws.Range["B" + point].Value = "Итого:";
+            ws.Range["E" + point].Formula = "=СУММ(E" + startPoint + ":E" + (point - 1) + ")";
+            ws.Range["F" + point].Formula = "=СУММ(F" + startPoint + ":F" + (point - 1) + ")";
 
             app.Calculation = XlCalculation.xlCalculationAutomatic;
             ws.Calculate();
@@ -184,29 +189,29 @@ namespace ShiraRDKWork
                 string n8 = bTick.Count.ToString();
                 string n9 = (bTick.Count * bTick.Event.Price).ToString();
                 ChekWindow window
-                    = new ChekWindow(   n0,
-                                        n1,
-                                        n2,
-                                        n3,
-                                        n4,
-                                        n5,
-                                        n6,
-                                        n7,
-                                        n8,
-                                        n9);
+                = new ChekWindow(n0,
+                                    n1,
+                                    n2,
+                                    n3,
+                                    n4,
+                                    n5,
+                                    n6,
+                                    n7,
+                                    n8,
+                                    n9);
                 window.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Ошибка!");
-                MessageBox.Show("Оформите чек в ручную.","Сообщение");
+                MessageBox.Show(ex.Message, "Ошибка!");
+                MessageBox.Show("Оформите чек в ручную.", "Сообщение");
                 return;
             }
         }
 
-        private void cleanBtn_Click(object sender, RoutedEventArgs e)
+        private void sellerCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            DataGridUpdate();
         }
     }
 }

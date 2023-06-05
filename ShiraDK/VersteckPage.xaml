@@ -108,7 +108,7 @@
                 </StackPanel>
                 <Grid Background="#2D2D2C" Height="2.5"/>
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid Margin="10" MinHeight="540" Width="400" x:Name="dataGridAdd">
+                    <DataGrid Margin="10" Height="540" Width="400" x:Name="dataGridAdd">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Поступления"  Width="1*">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -140,7 +140,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid Margin="10" MinHeight="540" Width="400" x:Name="dataGridRemove">
+                    <DataGrid Margin="10" Height="540" Width="400" x:Name="dataGridRemove">
 
                         <DataGrid.Columns>
 
@@ -181,10 +181,10 @@
                 <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="25" Text="Фильтры" Margin="0,0,0,20"/>
 
                 <TextBlock  Text="Период от:"/>
-                <DatePicker   x:Name="startDatePicer" Width="250"/>
+                <DatePicker   x:Name="startDatePicer" Width="250"  SelectedDateChanged="endDatePicer_SelectedDateChanged"/>
                 <TextBlock   Text="до:"/>
-                <DatePicker  x:Name="endDatePicer" Width="250"/>
-                <Button Padding="10,0,10,0" Margin="2" x:Name="clearBtn" Click="clearBtn_Click" Content="Сбросить"/>
+                <DatePicker  x:Name="endDatePicer" Width="250" SelectedDateChanged="endDatePicer_SelectedDateChanged"/>
+                <Button Padding="10,0,10,0" Margin="2,40,2,2" x:Name="clearBtn" Click="clearBtn_Click" Content="Сбросить"/>
             </StackPanel>
         </StackPanel>
     </Grid>

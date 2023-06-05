@@ -51,10 +51,6 @@ namespace ShiraRDKWork
         {
             NavigationService.Navigate(new EventPage(2));
         }
-        private void registerBtn_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new RegistrPage());
-        }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {

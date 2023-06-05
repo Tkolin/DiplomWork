@@ -27,9 +27,11 @@ namespace ShiraRDKWork
     public partial class AddEditVersteckPage : Page
     {
         WareHouse _wareHouse = new WareHouse();
-        Item _item = new Item();
+       
         bool add = true;
         int doEditCount = 0;
+
+        Item _item = new Item();
         BitmapImage _image;
         List<User> organizers = new List<User>();
 
@@ -42,14 +44,16 @@ namespace ShiraRDKWork
                 this._item = _wareHouse.Item;
                 add = false;
                 doEditCount = (int)this._wareHouse.Quantity;
-            }
-            DataContext = _wareHouse;
+            }     
         }
 
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {
             userIdCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
-            
+            userIdCBox.DisplayMemberPath = "FirstName";
+
+            itemCBox.ItemsSource = DBEntities.GetContext().Items.ToList();
+            itemCBox.DisplayMemberPath = "Name";
 
             if (!add)
             {
@@ -57,8 +61,7 @@ namespace ShiraRDKWork
                 recepiptDatePicer.SelectedDate = _wareHouse.DateOfReceipt;
                 countTBox.Text = _wareHouse.Quantity.ToString();
                 userIdCBox.SelectedItem = _wareHouse.User;
-
-                //TODO: Привязать itemIdCBox
+                itemCBox.SelectedItem = _wareHouse.Item;
 
                 if(_wareHouse.Quantity< 0)
                     minusCBox.IsChecked = true;
@@ -72,7 +75,7 @@ namespace ShiraRDKWork
                 zValueTBox.Text = _item.Length.ToString();
                 descriptionTBox.Text = _item.Description;
                 if (_item.Image != null)
-                {//конвертация из базы
+                {
                     MemoryStream ms = new MemoryStream(_item.Image, 0, _item.Image.Length);
                     ms.Write(_item.Image, 0, _item.Image.Length);
                     _image = ConvertToBitmap(_item.Image);
@@ -150,25 +153,6 @@ namespace ShiraRDKWork
 
 
 
-
-        private void LoadImageBtn_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                string filename = dlg.FileName;
-                _image = new BitmapImage(new Uri(filename));
-                imageItemImg.Source = _image;
-            }
-            
-        }
-
         private void deletImageBtn_Click(object sender, RoutedEventArgs e)
         {
             _image = null;
@@ -179,7 +163,7 @@ namespace ShiraRDKWork
      
         private void addNewItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            //NavigaSe
+            NavigationService.Navigate(new AddEditItemPage());
         }
 
         private void itemIdCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -191,6 +175,7 @@ namespace ShiraRDKWork
             xValueTBox.Text = _item.Width.ToString();
             yValueTBox.Text = _item.Height.ToString();
             zValueTBox.Text = _item.Length.ToString();
+            widhValueTBox.Text = _item.Weight.ToString();
             descriptionTBox.Text = _item.Description;
             if (_item.Image != null)
             {//конвертация из базы

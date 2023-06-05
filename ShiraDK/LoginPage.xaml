@@ -91,8 +91,6 @@
                 <PasswordBox Margin="0,0,0,15" x:Name="passwordBox"/>
                 <Button   x:Name="nextBtn" Click="nextBtn_Click">Вход</Button>
                 <Button  x:Name="nextGostBtn" Click="nextGostBtn_Click" Content="Войти как гость"/>
-
-                <Button  x:Name="registerBtn" Click="registerBtn_Click"  >Регистрация</Button>
             </StackPanel>
 
 

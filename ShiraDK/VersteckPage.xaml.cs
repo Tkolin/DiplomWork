@@ -29,8 +29,7 @@ namespace ShiraRDKWork
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGridAdd.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
-            dataGridRemove.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
+            DataGridUpdate();
         }
 
 
@@ -59,8 +58,7 @@ namespace ShiraRDKWork
                     DBEntities.GetContext().WareHouses.Remove(ClientForRemoving);
                     DBEntities.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены! ");
-                    dataGridAdd.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
-                    dataGridRemove.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
+                    DataGridUpdate();
 
                 }
                 catch (Exception ex)
@@ -89,21 +87,25 @@ namespace ShiraRDKWork
             NavigationService.Navigate(new AddEditVersteckPage(selectedOrder));
         }
 
-        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        private void DataGridUpdate()
         {
-            if (startDatePicer.SelectedDate == null &&
-                endDatePicer.SelectedDate == null)
-                return;
+            List<WareHouse> wareHousesAdd = DBEntities.GetContext().WareHouses.Where(w => w.Quantity >= 0).ToList();
+            List<WareHouse> wareHousesRemove = DBEntities.GetContext().WareHouses.Where(w => w.Quantity < 0).ToList();
 
-            List<WareHouse> wareHouses = DBEntities.GetContext().WareHouses.ToList();
-         
             if (startDatePicer.SelectedDate != null)
-                wareHouses = (List<WareHouse>)wareHouses.Where(eve => eve.DateOfReceipt >= startDatePicer.SelectedDate).ToList();
+            {
+                wareHousesAdd = wareHousesAdd.Where(eve => eve.DateOfReceipt >= startDatePicer.SelectedDate).ToList();
+                wareHousesRemove = wareHousesRemove.Where(eve => eve.DateOfReceipt >= startDatePicer.SelectedDate).ToList();
+            }
+               
             if (endDatePicer.SelectedDate != null)
-                wareHouses = (List<WareHouse>)wareHouses.Where(eve => eve.DateOfReceipt <= endDatePicer.SelectedDate).ToList();
+            {
+                wareHousesAdd = wareHousesAdd.Where(eve => eve.DateOfReceipt <= endDatePicer.SelectedDate).ToList();
+                wareHousesRemove = wareHousesRemove.Where(eve => eve.DateOfReceipt >= startDatePicer.SelectedDate).ToList();
+            }
 
-            dataGridAdd.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
-            dataGridRemove.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
+            dataGridAdd.ItemsSource = wareHousesAdd.ToList();
+            dataGridRemove.ItemsSource = wareHousesRemove.ToList();
         }
 
         private void clearBtn_Click(object sender, RoutedEventArgs e)
@@ -113,8 +115,12 @@ namespace ShiraRDKWork
             endDatePicer.SelectedDate = null;
 
 
-            dataGridAdd.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
-            dataGridRemove.ItemsSource = DBEntities.GetContext().WareHouses.ToList();
+            DataGridUpdate();
+        }
+
+        private void endDatePicer_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGridUpdate();
         }
     }
 }

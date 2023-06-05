@@ -31,8 +31,8 @@ namespace ShiraRDKWork
                 this._ticet = _ticet;
                 add = false;
             }
-            DataContext = _ticet;
         }
+
 
 
 
@@ -46,14 +46,13 @@ namespace ShiraRDKWork
                 MessageBox.Show("Не все поля были заполнены");
                 return;
             }
-            //Проверяем оставшиеся места
-            //if (((Event)eventCBox.SelectedItem).AvailableOfSeats.Value < Convert.ToInt32(countTBox.Text) || 
-            //    ((Event)eventCBox.SelectedItem).AvailableOfSeats == null ||
-            //    ((Event)eventCBox.SelectedItem).AvailableOfSeats == 0)
+            
+            if (((Event)eventCBox.SelectedItem).AvailableOfSeat.Value < Convert.ToInt32(countTBox.Text) ||
+                ((Event)eventCBox.SelectedItem).AvailableOfSeat == null ||
+                ((Event)eventCBox.SelectedItem).AvailableOfSeat == 0)
             {
                 MessageBox.Show("Мест не хватает!");
                 return;
-
             }
             try
                 { 
@@ -62,7 +61,7 @@ namespace ShiraRDKWork
                 _ticet.BuyerID = ((User)buyerCBox.SelectedItem).ID;
                 _ticet.EventID = ((Event)eventCBox.SelectedItem).ID;
                 Event evt = (Event)eventCBox.SelectedItem;
-                //evt.AvailableOfSeats -= Convert.ToInt32(countTBox.Text);
+                evt.AvailableOfSeat -= Convert.ToInt32(countTBox.Text);
                 _ticet.Count = Convert.ToInt32(countTBox.Text);
             }
             catch (Exception ex)
@@ -91,7 +90,7 @@ namespace ShiraRDKWork
             buyerCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
             eventCBox.ItemsSource = DBEntities.GetContext().Events
                 .Where(d=>d.DateStart >= DateTime.Now)
-                 //.Where(d => d.AvailableOfSeats > 0)
+                 .Where(d => d.AvailableOfSeat > 0)
                 .ToList();
             if(eventCBox.Items.Count == 0)
             {
@@ -123,12 +122,14 @@ namespace ShiraRDKWork
             if (countTBox.Text.Length == 0 || eventCBox.SelectedValue == null)
                 return;
             
-            priceTBlock.Text = (Convert.ToInt32(countTBox.Text) * ((Event)eventCBox.SelectedItem).Price) +" руб.";
+            priceTBlock.Text = "Сумма: " + (Convert.ToInt32(countTBox.Text) * ((Event)eventCBox.SelectedItem).Price) +" руб.";
         }
 
         private void eventCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            tickPriceTBlock.Text = "Стоимость одного билета: " + ((Event)eventCBox.SelectedItem).Price.ToString();
+          
+             tBlockSeatsCount.Text = "Кол-во мест:" + ((Event)eventCBox.SelectedItem).AvailableOfSeat.ToString();
         }
     }
 }

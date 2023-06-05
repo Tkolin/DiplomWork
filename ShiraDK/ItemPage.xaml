@@ -104,7 +104,7 @@
             <StackPanel Orientation="Vertical">
                 
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid Margin="10" MinHeight="540" Width="674" x:Name="dataGrid">
+                    <DataGrid Margin="10" Height="540" Width="674" x:Name="dataGrid">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Склад"  Width="1*">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -159,11 +159,10 @@
             <Grid Width="2.5" Background="Black"></Grid>
             <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Margin="10,80,10,0" >
                 <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="25" Text="Фильтры" Margin="0,0,0,20"/>
+                <TextBlock   Text="Поиск по содержанию:"/>
+                <TextBox x:Name="tBoxName" Width="250" TextChanged="tBoxName_TextChanged"/>
 
-                <TextBlock   Text="Период от:"/>
-                <DatePicker x:Name="startDatePicer" Width="250"/>
-                <TextBlock VerticalAlignment="Center" Text="до:"/>
-                <DatePicker  x:Name="endDatePicer" Width="250"/>
+
                 <Button  x:Name="clearBtn" Click="clearBtn_Click" Content="Сбросить" Margin="3,20,3,3"/>
             </StackPanel>
         </StackPanel>

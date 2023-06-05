@@ -29,26 +29,37 @@ namespace ShiraRDKWork
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = DBEntities.GetContext().Users.ToList();
-            DataContext = this;
+            DataGridUpdate();
         }
 
+        private void DataGridUpdate()
+        {
+            List<User> events = DBEntities.GetContext().Users.ToList();
 
+            if (firstNameBox.Text.Length != 0)
+            {
+                string txt = firstNameBox.Text.ToLower();
+
+                events = events.Where(x => x.FirstName.ToLower().Contains(txt) ||
+                        x.LastName.ToLower().Contains(txt) ||
+                        x.Login.ToLower().Contains(txt) ||
+                        x.Password.ToLower().Contains(txt)).ToList();
+            }
+            dataGrid.ItemsSource = events.ToList();
+        }
 
         private void deletBtn_Click(object sender, RoutedEventArgs e)
         {
-            var ClientForRemoving = dataGrid.SelectedItems.Cast<User>().ToList();
+            var selectRows = dataGrid.SelectedItems.Cast<User>().ToList();
 
-            if (MessageBox.Show($"Вы уверены? Удалится {ClientForRemoving.Count()} элемент(ов)?", "Внимание",
+            if (MessageBox.Show($"Вы уверены? Удалится {selectRows.Count()} элемент(ов)?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    DBEntities.GetContext().Users.RemoveRange(ClientForRemoving);
+                    DBEntities.GetContext().Users.RemoveRange(selectRows);
                     DBEntities.GetContext().SaveChanges();
-                    MessageBox.Show("Данные удалены! ");
-                    dataGrid.ItemsSource = DBEntities.GetContext().Users.ToList();
-
+                    MessageBox.Show("Данные удалены! ");                 
                 }
                 catch (Exception ex)
                 {
@@ -56,6 +67,8 @@ namespace ShiraRDKWork
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
+
+            DataGridUpdate();
         }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
@@ -70,29 +83,17 @@ namespace ShiraRDKWork
             NavigationService.Navigate(new AddEditUserPage((User)dataGrid.SelectedValue));
         }
 
-        private void searchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (firstNameBox.Text == null &&
-                lastNameBox.Text == null)
-                return;
-
-            List<User> events = DBEntities.GetContext().Users.ToList();
-
-            if (firstNameBox.Text != null)
-                events = (List<User>)events.Where(eve => eve.FirstName.ToLower().IndexOf(firstNameBox.Text.ToLower()) != -1).ToList();
-            if (lastNameBox.Text != null)
-                events = (List<User>)events.Where(eve => eve.LastName.ToLower().IndexOf(lastNameBox.Text.ToLower()) != -1).ToList();
-
-            dataGrid.ItemsSource = events.ToList();
-        }
 
         private void clearBtn_Click(object sender, RoutedEventArgs e)
         {
             firstNameBox.Text = null;
-            lastNameBox.Text = null;
-
 
             dataGrid.ItemsSource = DBEntities.GetContext().Users.ToList();
+        }
+
+        private void firstNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataGridUpdate();
         }
     }
 }

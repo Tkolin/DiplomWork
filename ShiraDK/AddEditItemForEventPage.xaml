@@ -110,7 +110,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="10,0,10,0" Width="400">
                         <TextBlock Text="Описание:"/>
-                        <TextBox  x:Name="DescriptionTBox" Height="92" IsEnabled="False"/>
+                        <TextBox  x:Name="descriptionTBox" Height="92" IsEnabled="False"/>
                     </StackPanel>
                   
 
@@ -118,32 +118,28 @@
                 <Grid Background="Black" Height="2" Margin="0,10,0,10"/>
                 <Label  HorizontalContentAlignment="Center" Content="Редактирование инвентаря"/>
                 <StackPanel Orientation="Horizontal">
-                    <DataGrid  Width="500" x:Name="dataGridEvent" MinHeight="300" SelectionChanged="dataGridEvent_SelectionChanged">
+                    <DataGrid  Width="500" x:Name="dataGridEvent" Height="300" SelectionChanged="dataGridEvent_SelectionChanged">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Поступления"  Width="1*">
+                            <DataGridTemplateColumn Header="Инвентарь на мироприятие"  Width="1*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="{Binding Item.Image}" Width="100" Height="100"/>
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Наименование:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Дата операции:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Кол-во:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Пользователь:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding  Item.Name}" Margin="10,0,10,0"/>
+                                                <Grid Height="1.5" Background="Black"></Grid>
+                                                <TextBlock Text="Описание:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding  Item.Description}" TextWrapping="Wrap" Margin="10,0,5,0" Width="100"/>
                                             </StackPanel>
+                                            <Grid Width="1" Background="Black"></Grid>
                                             <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="{Binding Item.Name}" Margin="10,0,10,0"/>
-                                                <TextBlock Text="{Binding DateOfReceipt}" />
-                                                <TextBlock Text="{Binding Quantity}" />
+                                                <Grid Height="1.5" Background="Black"></Grid>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding User.FirstName}" Margin="5,0,5,0"/>
-                                                    <TextBlock Text="{Binding User.LastName}"  Margin="5,0,5,0"/>
-                                                    <TextBlock Text="| Логин - "/>
-                                                    <TextBlock Text="{Binding User.Login}"/>
+                                                    <TextBlock Text="  Кол-во: "/>
+                                                    <TextBlock Text="{Binding Quantity}" Margin="10,0,10,0"/>
                                                 </StackPanel>
-
                                             </StackPanel>
-
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -152,37 +148,47 @@
                     </DataGrid>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                         <TextBlock Text="Кол-во:" TextAlignment="Center"/>
+                        <TextBlock Text="(на складе)" TextAlignment="Center" x:Name="VersteckTBlock"/>
                         <TextBox x:Name="countItems" Width="121" Margin="10"/>
+                        
                         <Button Margin="4,0,4,4" Width ="150" x:Name="addItemForEvent" Click="addItemForEvent_Click" Content="Добавить"/>
                         <Button Margin="4" Width ="150" Click="delItemForEvent_Click" x:Name="delItemForEvent" Content="Убрать"/>
 
                     </StackPanel>
-                    <DataGrid Width="500" x:Name="dataGridBase"  MinHeight="300" Height="349" SelectionChanged="dataGridBase_SelectionChanged">
+                    <DataGrid Width="500" x:Name="dataGridBase"  Height="300" SelectionChanged="dataGridBase_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Инвентарь на складе"  Width="1*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Image Source="{Binding Item.Image}" Width="100" Height="100"/>
+                                            <Image Source="{Binding Image}" Width="100" Height="100"/>
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock Text="Наименование:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Дата операции:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Кол-во:" Margin="10,0,10,0"/>
-                                                <TextBlock Text="Пользователь:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding Name}" Margin="10,0,10,0"/>
+                                                <Grid Height="1.5" Background="Black"></Grid>
+                                                <TextBlock Text="Описание:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="10,0,5,0" Width="100"/>
                                             </StackPanel>
+                                            <Grid Width="1" Background="Black"></Grid>
                                             <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="{Binding Item.Name}" Margin="10,0,10,0"/>
-                                                <TextBlock Text="{Binding DateOfReceipt}" />
-                                                <TextBlock Text="{Binding Quantity}" />
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding User.FirstName}" Margin="5,0,5,0"/>
-                                                    <TextBlock Text="{Binding User.LastName}"  Margin="5,0,5,0"/>
-                                                    <TextBlock Text="| Логин - "/>
-                                                    <TextBlock Text="{Binding User.Login}"/>
+                                                    <TextBlock Text="  Габариты: "/>
+                                                    <TextBlock Text="{Binding Width}" Margin="2,0,2,0"/>
+                                                    <TextBlock Text="x"/>
+                                                    <TextBlock Text="{Binding Length}" Margin="2,0,2,0"/>
+                                                    <TextBlock Text="x"/>
+                                                    <TextBlock Text="{Binding Height}" Margin="2,0,2,0"/>
                                                 </StackPanel>
-
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="  Вес: "/>
+                                                    <TextBlock Text="{Binding Weight}" Margin="10,0,10,0"/>
+                                                </StackPanel>
+                                                <Grid Height="1.5" Background="Black"></Grid>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="  Всего на складе: "/>
+                                                    <TextBlock Text="{Binding Count}" Margin="10,0,10,0"/>
+                                                </StackPanel>
                                             </StackPanel>
-
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

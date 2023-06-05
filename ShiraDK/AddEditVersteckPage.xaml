@@ -9,7 +9,7 @@
       Title="AddEditVersteckPage" Loaded="Page_Loaded">
 
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical">
 
 
             <StackPanel.Resources>
@@ -109,8 +109,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
 
-                        <Border Padding="1" BorderBrush="Black" BorderThickness="2" CornerRadius="4" Margin="10">
-                            <Image  Height="400" Width="400" Source="{Binding _image}" x:Name="imageItemImg"/>
+                        <Border Padding="1" BorderBrush="Black" BorderThickness="2" CornerRadius="4" Margin="10" Height="350">
+                            <Image  Height="350" Width="350" Source="{Binding _image}" x:Name="imageItemImg"/>
 
                         </Border>
 
@@ -131,7 +131,7 @@
                                 <TextBlock  x:Name="widhValueTBox" Text="0" />
                             </StackPanel>
                             <TextBlock Text="Описание:"/>
-                            <TextBox  x:Name="descriptionTBox" Height="225" IsEnabled="False"/>
+                            <TextBox  x:Name="descriptionTBox" Height="172" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0">

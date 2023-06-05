@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ShiraRDKWork"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
-      Title="AddEditItemPage">
+      Title="AddEditItemPage" Loaded="Page_Loaded">
 
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">

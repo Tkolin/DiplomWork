@@ -110,12 +110,12 @@
                     <Button  x:Name="editBtn" Click="editBtn_Click" Content="Редактировать"/>
                 </StackPanel>
                 <Grid Background="#2D2D2C" Height="2.5" Margin="0,5,0,0"/>
-                <DataGrid Margin="10" MinHeight="540" Width="956" x:Name="dataGrid" >
+                <DataGrid Margin="10" Height="540" Width="956" x:Name="dataGrid" >
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="3*"/>
                         <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="3*"/>
-                        <DataGridTextColumn Header="Роль" Binding="{Binding Roles.Name}" Width="2*"/>
+                        <DataGridTextColumn Header="Роль" Binding="{Binding Role.Name}" Width="2*"/>
                         <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="3*"/>
                         <DataGridTextColumn Header="Пароль" Binding="{Binding Password}" Width="3*"/>
                     </DataGrid.Columns>
@@ -125,11 +125,9 @@
 
             <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Margin="0,80,0,0" >
                 <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="25" Text="Фильтры" Margin="0,0,0,20"/>
-                <TextBlock   >Имя:</TextBlock>
-                <TextBox  x:Name="firstNameBox"/>
-                <TextBlock   >Фамилия:</TextBlock>
-                <TextBox  x:Name="lastNameBox"/>
-                <Button   x:Name="clearBtn" Click="clearBtn_Click" Content="Обновить"/> 
+                <TextBlock   >ФИО:</TextBlock>
+                <TextBox  x:Name="firstNameBox" TextChanged="firstNameBox_TextChanged"/>
+                <Button   x:Name="clearBtn" Click="clearBtn_Click" Content="Сбросить" Margin="3,20,3,3"/> 
             </StackPanel>
         </StackPanel>
     </Grid>

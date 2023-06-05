@@ -29,36 +29,29 @@ namespace ShiraRDKWork
         
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = DBEntities.GetContext().Events.ToList();
-            orginazerCbox.ItemsSource = DBEntities.GetContext().Organizers.ToList();
 
-            if(role == 2)
+            DataGridUpdate();
+            orginazerCbox.ItemsSource = DBEntities. GetContext().Organizers.ToList();
+            orginazerCbox.DisplayMemberPath = "Name";
+
+            if (role == 2)
             {
                 CRUDpanel.Visibility = Visibility.Collapsed;
             }
-            DataContext = this;
         }
 
-        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        private void DataGridUpdate()
         {
-             
-
-            if (orginazerCbox.SelectedValue == null && 
-                startDatePicer.SelectedDate == null && 
-                endDatePicer.SelectedDate == null && 
-                eventNameBox.Text.Length <= 0)
-                return;
-
             List<Event> events = DBEntities.GetContext().Events.ToList();
 
             if (orginazerCbox.SelectedValue != null)
-                events = (List<Event>)events.Where(eve => eve.Organizer == (Organizer)orginazerCbox.SelectedItem).ToList();
+                events = events.Where(eve => eve.Organizer == (Organizer)orginazerCbox.SelectedItem).ToList();
             if(startDatePicer.SelectedDate != null)
-                events = (List<Event>)events.Where(eve => eve.DateStart >= startDatePicer.SelectedDate).ToList();
+                events = events.Where(eve => eve.DateStart >= startDatePicer.SelectedDate).ToList();
             if(endDatePicer.SelectedDate != null)
-                events = (List<Event>)events.Where(eve => eve.DateStart <= endDatePicer.SelectedDate).ToList();
+                events = events.Where(eve => eve.DateStart <= endDatePicer.SelectedDate).ToList();
             if(eventNameBox.Text.Length > 0)
-                events = (List<Event>)events.Where(eve => eve.Name.ToLower().IndexOf(eventNameBox.Text.ToLower()) != -1).ToList();
+                events =events.Where(eve => eve.Name.ToLower().IndexOf(eventNameBox.Text.ToLower()) != -1).ToList();
 
             dataGrid.ItemsSource = events.ToList();
 
@@ -74,7 +67,7 @@ namespace ShiraRDKWork
             endDatePicer.SelectedDate = null;
             eventNameBox.Text = null;
 
-            dataGrid.ItemsSource = DBEntities.GetContext().Events.ToList();
+            DataGridUpdate();
         }
 
 
@@ -92,12 +85,11 @@ namespace ShiraRDKWork
                     DBEntities.GetContext().Events.RemoveRange(ClientForRemoving);
                     DBEntities.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены! ");
-                    dataGrid.ItemsSource = DBEntities.GetContext().Events.ToList();
+                    DataGridUpdate();
 
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
@@ -121,6 +113,17 @@ namespace ShiraRDKWork
                 return;
 
             NavigationService.Navigate(new ItemForEventPage((Event)dataGrid.SelectedValue));
+        }
+
+        private void eventNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataGridUpdate();
+        }
+
+        private void orginazerCbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGridUpdate();
+
         }
     }
 }
