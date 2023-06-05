@@ -29,7 +29,6 @@ namespace ShiraRDKWork
         WareHouse _wareHouse = new WareHouse();
         Item _item = new Item();
         bool add = true;
-        bool addItem = false;
         int doEditCount = 0;
         BitmapImage _image;
         List<User> organizers = new List<User>();
@@ -50,11 +49,11 @@ namespace ShiraRDKWork
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {
             userIdCBox.ItemsSource = DBEntities.GetContext().Users.ToList();
-            itemIdCBox.ItemsSource = DBEntities.GetContext().Items.ToList();
+            
 
             if (!add)
             {
-                wareHouseIdTBox.Text = _wareHouse.Number.ToString();
+               
                 recepiptDatePicer.SelectedDate = _wareHouse.DateOfReceipt;
                 countTBox.Text = _wareHouse.Quantity.ToString();
                 userIdCBox.SelectedItem = _wareHouse.User;
@@ -66,7 +65,7 @@ namespace ShiraRDKWork
                 else 
                     minusCBox.IsChecked = false;
 
-                itemIdCBox.SelectedItem = _item;
+             
                 itemNameTBox.Text = _item.Name;
                 xValueTBox.Text = _item.Width.ToString();
                 yValueTBox.Text = _item.Height.ToString();
@@ -85,7 +84,7 @@ namespace ShiraRDKWork
             else
             {
                 recepiptDatePicer.SelectedDate = DateTime.Now;
-                itemIdCBox.IsEnabled = true;
+               
                 addNewItemBtn.IsEnabled = true;
             }
 
@@ -95,16 +94,14 @@ namespace ShiraRDKWork
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (recepiptDatePicer.SelectedDate == null || countTBox.Text == null ||
-                userIdCBox.SelectedItem == null || itemNameTBox.Text == null || itemIdCBox.SelectedItem == null)
+                userIdCBox.SelectedItem == null)
             {
                 MessageBox.Show("Не все поля были заполнены");
                 return;
             }
-            if(addItem)
-                MessageBox.Show("Завершите редактирование предмета!");
             try
             {
-                _item = itemIdCBox.SelectedItem as Item;
+                _item = itemCBox.SelectedItem as Item;
 
                 _wareHouse.DateOfReceipt = (DateTime)recepiptDatePicer.SelectedDate;
                 _wareHouse.UserID = ((User)userIdCBox.SelectedItem).ID;
@@ -179,69 +176,17 @@ namespace ShiraRDKWork
         }
 
 
-        private void saveInvetariumEditBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO: при изменении сохронять 
-            if (itemNameTBox.Text.Length < 0)
-            {
-                MessageBox.Show("Не все поля были заполнены");
-                return;
-            }
-
-            try
-            {
-                if (addItem)
-                    _item = new Item();
-                _item.Name = itemNameTBox.Text;
-                _item.Width = Convert.ToDouble(xValueTBox.Text);
-                _item.Height = Convert.ToDouble(yValueTBox.Text);
-                _item.Length = Convert.ToDouble(zValueTBox.Text);
-                _item.Description = descriptionTBox.Text;
-                if (_image != null)
-                    _item.Image = ConvertToArray(_image);
-                else 
-                _item.Image = null;
-                if (addItem)
-                {
-                    DBEntities.GetContext().Items.Add(_item);
-                    addItem = false;
-                }
-
-                DBEntities.GetContext().SaveChanges();
-                MessageBox.Show("Данные успешно изменены!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка: " + ex.Message, "Проверьте введёные данные!");
-                return;
-            }
-            itemIdCBox.ItemsSource = DBEntities.GetContext().Items.ToList();
-            itemIdCBox.SelectedItem = _item;
-        }
-
+     
         private void addNewItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: при добавлении сбрасывать cBox 
-            addItem = true;
-
-            itemIdCBox.SelectedItem = null;
-            itemNameTBox.Text = null;
-            xValueTBox.Text = null;
-            yValueTBox.Text = null;
-            zValueTBox.Text = null;
-            descriptionTBox.Text = null; 
-            imageItemImg.Source = null;
+            //NavigaSe
         }
 
         private void itemIdCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _item = itemIdCBox.SelectedItem as Item;
-            if (_item == null)
-                return;
-            else
-                addItem = false;
+            _item = itemCBox.SelectedItem as Item;
             //TODO: при выборе изменять активный предмет 
-            itemIdCBox.SelectedItem = _item;
+            itemCBox.SelectedItem = _item;
             itemNameTBox.Text = _item.Name;
             xValueTBox.Text = _item.Width.ToString();
             yValueTBox.Text = _item.Height.ToString();

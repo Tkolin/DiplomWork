@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ShiraRDKWork"
       mc:Ignorable="d" 
-  d:DesignHeight="700" d:DesignWidth="1200"
+  d:DesignHeight="640" d:DesignWidth="1200"
       Title="ItemForEventPage" Loaded="Page_Loaded">
  
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Margin" Value="3"/>
@@ -53,7 +53,7 @@
                     <Setter Property="Foreground" Value="Black" />
                     <Setter Property="FontSize" Value="20" />
                     <Setter Property="BorderBrush" Value="#2D2D2C"/>
-                    <Setter Property="BorderThickness" Value="2.5"/>
+                    <Setter Property="BorderThickness" Value="1"/>
                     <Setter Property="FontFamily" Value="Inter"/>
                     <Setter Property="Padding" Value="5,5,0,0"/>
                 </Style>
@@ -62,87 +62,137 @@
                     <Setter Property="Foreground" Value="Black" />
                     <Setter Property="FontSize" Value="20" />
                     <Setter Property="BorderBrush" Value="#2D2D2C"/>
-                    <Setter Property="BorderThickness" Value="2.5"/>
+                    <Setter Property="BorderThickness" Value="1"/>
                     <Setter Property="FontFamily" Value="Inter"/>
                     <Setter Property="Padding" Value="5,5,0,0"/>
-                </Style>
-                <Style TargetType="ComboBox">
-                    <Setter Property="Background" Value="#FFF3EFE9"/>
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="FontSize" Value="20" />
-                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
-                    <Setter Property="BorderThickness" Value="2.5"/>
-                    <Setter Property="FontFamily" Value="Inter"/>
-                    <Setter Property="Padding" Value="5,5,0,0"/>
-                </Style>
-                <Style TargetType="PasswordBox">
-                    <Setter Property="Background" Value="#FFF3EFE9"/>
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="FontSize" Value="15" />
-                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
-                    <Setter Property="BorderThickness" Value="2.5"/>
-                    <Setter Property="Padding" Value="5"/>
                 </Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="Foreground" Value="#2D2D2C" />
                     <Setter Property="FontSize" Value="20" />
                     <Setter Property="FontFamily" Value="Bahnschrift"/>
                 </Style>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+                    <Setter Property="Padding" Value="5,5,0,5"/>
+                </Style>
+                <Style TargetType="DataGrid">
+                    <Setter Property="Background" Value="#FFF3EFE9"/>
+                    <Setter Property="BorderBrush" Value="#2D2D2C"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                    <Setter Property="AutoGenerateColumns" Value="False"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                    <Setter Property="FontFamily" Value="Bahnschrift SemiBold SemiCondensed"/>
+                </Style>
             </StackPanel.Resources>
 
 
 
+            <Label  HorizontalContentAlignment="Center" Content="Информация о мероприятии"/> 
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0" Width="350">
+                        <TextBlock Text="Название:" />
+                        <TextBox   x:Name="eventNameTBox" IsEnabled="False"/>
+                        <TextBlock Text="Дата начала:"/>
+                        <DatePicker  x:Name="startTimeDatePicer" IsEnabled="False"/>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Width="300">
-                    <Label   HorizontalContentAlignment="Center" FontWeight="Bold">Мироприятие</Label>
-                    <TextBlock Margin="5,0,0,0">ID:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="eventIdTBox" IsEnabled="False"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Название:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="eventNameTBox"  IsEnabled="False"/>
-                    <DataGrid SelectionChanged="dataGridEvents_SelectionChanged"  Width="250" Height="200" x:Name="dataGridEvents" AutoGenerateColumns="False" IsReadOnly="True">
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10,0,10,0" Width="350">
+                        <TextBlock Text="Кол-во мест"/>
+                        <TextBox x:Name="countTBox" IsEnabled="False"/>
+                        <TextBlock Text="Продолжительность (мин):"/>
+                        <TextBox x:Name="durationTBox" IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10,0,10,0" Width="400">
+                        <TextBlock Text="Описание:"/>
+                        <TextBox  x:Name="DescriptionTBox" Height="92" IsEnabled="False"/>
+                    </StackPanel>
+                  
+
+                </StackPanel>
+                <Grid Background="Black" Height="2" Margin="0,10,0,10"/>
+                <Label  HorizontalContentAlignment="Center" Content="Редактирование инвентаря"/>
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid  Width="500" x:Name="dataGridEvent" MinHeight="300" SelectionChanged="dataGridEvent_SelectionChanged">
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Поступления"  Width="1*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Item.Image}" Width="100" Height="100"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Наименование:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Дата операции:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Кол-во:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Пользователь:" Margin="10,0,10,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Item.Name}" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding DateOfReceipt}" />
+                                                <TextBlock Text="{Binding Quantity}" />
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding User.FirstName}" Margin="5,0,5,0"/>
+                                                    <TextBlock Text="{Binding User.LastName}"  Margin="5,0,5,0"/>
+                                                    <TextBlock Text="| Логин - "/>
+                                                    <TextBlock Text="{Binding User.Login}"/>
+                                                </StackPanel>
 
-                            <DataGridTextColumn Header="Название" Binding="{Binding Items.Name}" Width="1.2*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="1*"></DataGridTextColumn>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
-
                     </DataGrid>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="Кол-во:" TextAlignment="Center"/>
+                        <TextBox x:Name="countItems" Width="121" Margin="10"/>
+                        <Button Margin="4,0,4,4" Width ="150" x:Name="addItemForEvent" Click="addItemForEvent_Click" Content="Добавить"/>
+                        <Button Margin="4" Width ="150" Click="delItemForEvent_Click" x:Name="delItemForEvent" Content="Убрать"/>
 
-                    <Label HorizontalContentAlignment="Center" FontWeight="Bold">Информация о предмете</Label>
-                    <TextBlock Margin="5,0,0,0">ID:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="itemIdTBox" IsEnabled="False"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Название:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="itemNameTBox" IsEnabled="False"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Описание:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="descriptionTBox" IsEnabled="False"></TextBox>
-                    <TextBlock HorizontalAlignment="Center">Изображение</TextBlock>
-                    <Image  Height="60" Width="60" Source="{Binding _image}" x:Name="imageItemImg"></Image>
-                    <TextBlock HorizontalAlignment="Center" x:Name="countTBlock">Кол-во (доступно ):</TextBlock>
-                    <TextBox x:Name="countItems" Width="100" />
-                    <Button Margin="4,0,4,4" Width ="150" x:Name="addItemForEvent" Click="addItemForEvent_Click" Content="Добавить"/>
-                    <Button Margin="4" Width ="150" Click="delItemForEvent_Click" x:Name="delItemForEvent" Content="Убрать"/>
-
-
-
-
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Width="300">
-                    <Label   HorizontalContentAlignment="Center" FontWeight="Bold">Склад</Label>
-                    <DataGrid  Height="280" x:Name="dataGrid" AutoGenerateColumns="False" IsReadOnly="True" RenderTransformOrigin="0.5,0.5" SelectionChanged="dataGrid_SelectionChanged">
+                    </StackPanel>
+                    <DataGrid Width="500" x:Name="dataGridBase"  MinHeight="300" Height="349" SelectionChanged="dataGridBase_SelectionChanged">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="1.2*"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="1*"></DataGridTextColumn>
-                        </DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Инвентарь на складе"  Width="1*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Item.Image}" Width="100" Height="100"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="Наименование:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Дата операции:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Кол-во:" Margin="10,0,10,0"/>
+                                                <TextBlock Text="Пользователь:" Margin="10,0,10,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Item.Name}" Margin="10,0,10,0"/>
+                                                <TextBlock Text="{Binding DateOfReceipt}" />
+                                                <TextBlock Text="{Binding Quantity}" />
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding User.FirstName}" Margin="5,0,5,0"/>
+                                                    <TextBlock Text="{Binding User.LastName}"  Margin="5,0,5,0"/>
+                                                    <TextBlock Text="| Логин - "/>
+                                                    <TextBlock Text="{Binding User.Login}"/>
+                                                </StackPanel>
 
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
                     </DataGrid>
 
-
                 </StackPanel>
+
             </StackPanel>
-            
         </StackPanel>
     </Grid>
 </Page>

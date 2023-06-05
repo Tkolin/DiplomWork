@@ -32,5 +32,14 @@ namespace ShiraRDKWork
             InitializeComponent();
         }
 
+        private void imageUpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

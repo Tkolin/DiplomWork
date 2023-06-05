@@ -120,7 +120,7 @@
             </StackPanel>
 
 
-            <Button Width ="120" Margin="3" x:Name="saveBtn" Click="saveBtn_Click">Сохранить</Button>
+            <Button Width ="120" Margin="3,20,3,3" x:Name="saveBtn" Click="saveBtn_Click">Сохранить</Button>
 
 
         </StackPanel>

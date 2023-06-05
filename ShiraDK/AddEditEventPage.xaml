@@ -10,9 +10,9 @@
       Loaded="Page_Loaded">
 
     <Grid>
-   
+
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            
+
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Margin" Value="3"/>
@@ -100,33 +100,33 @@
                         <ImageBrush ImageSource="/Resursed/EditBG.png"  TileMode="Tile" Viewbox="0,0 1,1" Opacity="0.25" />
                     </Border.Background>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10" x:Name="InformatPanel">
-                    <Label  HorizontalContentAlignment="Center" FontWeight="Bold">Информация о мероприятии</Label>
-                    <TextBlock Margin="5,0,0,0">ID:</TextBlock>
-                    <TextBox Margin="0,0,0,5" Name="eventIdTBox" IsEnabled="False"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Название:</TextBlock>
-                    <TextBox  Margin="0,0,0,5" x:Name="eventNameTBox"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Дата начала:</TextBlock>
-                    <DatePicker Margin="5" x:Name="startTimeDatePicer"></DatePicker>
-                    <TextBlock Margin="5,0,0,0">Описание:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="DescriptionTBox"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Продолжительность (мин):</TextBlock>
-                    <TextBox Margin="3" Width="100" x:Name="durationTBox"
+                        <Label  HorizontalContentAlignment="Center" FontWeight="Bold">Информация о мероприятии</Label>
+                        <TextBlock Margin="5,0,0,0">ID:</TextBlock>
+                        <TextBox Margin="0,0,0,5" Name="eventIdTBox" IsEnabled="False"></TextBox>
+                        <TextBlock Margin="5,0,0,0">Название:</TextBlock>
+                        <TextBox  Margin="0,0,0,5" x:Name="eventNameTBox"></TextBox>
+                        <TextBlock Margin="5,0,0,0">Дата начала:</TextBlock>
+                        <DatePicker Margin="5" x:Name="startTimeDatePicer"></DatePicker>
+                        <TextBlock Margin="5,0,0,0">Описание:</TextBlock>
+                        <TextBox Margin="0,0,0,5" x:Name="DescriptionTBox"></TextBox>
+                        <TextBlock Margin="5,0,0,0">Продолжительность (мин):</TextBlock>
+                        <TextBox Margin="3" Width="100" x:Name="durationTBox"
                              HorizontalAlignment="Left" 
                              PreviewTextInput="durationTBox_PreviewTextInput" ></TextBox>
-                    <TextBlock Margin="5,0,0,0"
+                        <TextBlock Margin="5,0,0,0"
                                >Цена:</TextBlock>
-                    <TextBox Margin="3" Width="100" x:Name="priceTBox"
+                        <TextBox Margin="3" Width="100" x:Name="priceTBox"
                              HorizontalAlignment="Left" 
                              PreviewTextInput="priceTBox_PreviewTextInput"></TextBox>
-                    <TextBlock Margin="5,0,0,0"
+                        <TextBlock Margin="5,0,0,0"
                                >Кол-во мест (55 максимум):</TextBlock>
-                    <TextBox Margin="3" Width="100" x:Name="countTBox"
+                        <TextBox Margin="3" Width="100" x:Name="countTBox"
                              HorizontalAlignment="Left" 
                              PreviewTextInput="countTBox_PreviewTextInput"
                              TextChanged="countTBox_TextChanged"/>
 
 
-                </StackPanel>
+                    </StackPanel>
                 </Border>
                 <Border BorderBrush="#2D2D2C" BorderThickness="3" CornerRadius="10" Margin="2">
                     <Border.Background >

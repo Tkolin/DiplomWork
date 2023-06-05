@@ -180,10 +180,10 @@
             <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Margin="0,80,0,0" >
                 <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="25" Text="Фильтры" Margin="0,0,0,20"/>
 
-                <TextBlock VerticalAlignment="Center" Text="Период от:"/>
-                <DatePicker Margin="5,0,10,0" x:Name="startDatePicer" Width="250"/>
-                <TextBlock VerticalAlignment="Center" Text="до:"/>
-                <DatePicker Margin="5,0,10,0" x:Name="endDatePicer" Width="250"/>
+                <TextBlock  Text="Период от:"/>
+                <DatePicker   x:Name="startDatePicer" Width="250"/>
+                <TextBlock   Text="до:"/>
+                <DatePicker  x:Name="endDatePicer" Width="250"/>
                 <Button Padding="10,0,10,0" Margin="2" x:Name="clearBtn" Click="clearBtn_Click" Content="Сбросить"/>
             </StackPanel>
         </StackPanel>

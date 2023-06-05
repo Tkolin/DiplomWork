@@ -51,6 +51,7 @@
                     <Setter Property="FontFamily" Value="Bahnschrift SemiBold"/>
                 </Style>
                 <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="0,5,0,5"/>
                     <Setter Property="Background" Value="#FFF3EFE9"/>
                     <Setter Property="Foreground" Value="Black" />
                     <Setter Property="FontSize" Value="20" />
@@ -60,6 +61,7 @@
                     <Setter Property="Padding" Value="5,5,0,0"/>
                 </Style>
                 <Style TargetType="DatePicker">
+                    <Setter Property="Margin" Value="0,5,0,5"/>
                     <Setter Property="Background" Value="#FFF3EFE9"/>
                     <Setter Property="Foreground" Value="Black" />
                     <Setter Property="FontSize" Value="20" />
@@ -77,15 +79,16 @@
                     <Setter Property="FontFamily" Value="Inter"/>
                     <Setter Property="Padding" Value="5,5,0,0"/>
                 </Style>
-                <Style TargetType="PasswordBox">
-                    <Setter Property="Background" Value="#FFF3EFE9"/>
-                    <Setter Property="Foreground" Value="Black" />
-                    <Setter Property="FontSize" Value="15" />
+                <Style TargetType="CheckBox">
                     <Setter Property="BorderBrush" Value="#2D2D2C"/>
                     <Setter Property="BorderThickness" Value="2.5"/>
-                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Foreground" Value="#2D2D2C" />
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="FontFamily" Value="Bahnschrift"/>
                 </Style>
+
                 <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="0,5,0,5"/>
                     <Setter Property="Foreground" Value="#2D2D2C" />
                     <Setter Property="FontSize" Value="20" />
                     <Setter Property="FontFamily" Value="Bahnschrift"/>
@@ -96,71 +99,69 @@
 
 
             <StackPanel Orientation="Horizontal"  VerticalAlignment="Center" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
-                    <Label  HorizontalContentAlignment="Center" FontWeight="Bold">Информация о складе</Label>
-                    <TextBlock Margin="5,0,0,0">Номер записи:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="wareHouseIdTBox" IsEnabled="False"></TextBox>
-                    <TextBlock Margin="5,0,0,0">Дата поступления:</TextBlock>
-                    <DatePicker Margin="5" x:Name="recepiptDatePicer" IsEnabled="False"></DatePicker>
-                    <TextBlock Margin="5,0,0,0">ID пользователя:</TextBlock>
-                    <ComboBox Margin="0,0,0,5" x:Name="userIdCBox" 
-                                     ItemsSource="{Binding Users}"
-                                      DisplayMemberPath="FirstName"
-                                      SelectedItem="{Binding Users.ID}">
 
-                    </ComboBox>
-                    <CheckBox x:Name="minusCBox" Content="Списание"/>
-                    <TextBlock Margin="5,0,0,0">Количество:</TextBlock>
-                    <TextBox Margin="0,0,0,5" Width="80" HorizontalAlignment="Left" x:Name="countTBox" PreviewTextInput="countTBox_PreviewTextInput"></TextBox>
+
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Margin="10">
+                    <Label  HorizontalContentAlignment="Center" Content="Информация о предмете"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                        <TextBlock Text="Выбор предмета: "/>
+                        <ComboBox x:Name="itemCBox" SelectionChanged="itemIdCBox_SelectionChanged" Width="480"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border Padding="1" BorderBrush="Black" BorderThickness="2" CornerRadius="4" Margin="10">
+                            <Image  Height="400" Width="400" Source="{Binding _image}" x:Name="imageItemImg"/>
+
+                        </Border>
+
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Название:"/>
+                            <TextBox  x:Name="itemNameTBox" Width="239" IsEnabled="False"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Габариты: "/>
+                                <TextBlock  x:Name="xValueTBox" Text="0" />
+                                <TextBlock  Text="x"/>
+                                <TextBlock  x:Name="yValueTBox" Text="0" />
+                                <TextBlock Text="x"/>
+                                <TextBlock  x:Name="zValueTBox" Text="0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Вес: "/>
+                                <TextBlock  x:Name="widhValueTBox" Text="0" />
+                            </StackPanel>
+                            <TextBlock Text="Описание:"/>
+                            <TextBox  x:Name="descriptionTBox" Height="225" IsEnabled="False"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                        <Button Content="Добавить новый предмет" x:Name="addNewItemBtn" Click="addNewItemBtn_Click" Width="405" IsEnabled="False"/>
+                    </StackPanel>
 
                 </StackPanel>
-                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" Margin="10">
-                    <Label  HorizontalContentAlignment="Center" FontWeight="Bold">Информация о предмете</Label>
-                    <TextBlock Margin="5,0,0,0">ID:</TextBlock>
+
+                <Grid Background="Black" Width="2" Margin="0,10,0,10"/>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
+                    <Label  HorizontalContentAlignment="Center" FontWeight="Bold" Content="Информация о записи"/>
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Margin="0,0,0,5" x:Name="itemIdCBox" IsEnabled="False" Width="210" SelectionChanged="itemIdCBox_SelectionChanged"
-                                  ItemsSource="{Binding Items}"
-                                      DisplayMemberPath="ID"
-                                      SelectedItem="{Binding Items}"/>
-                        <Button Content="Добавить новый предмет" x:Name="addNewItemBtn" Click="addNewItemBtn_Click" Margin="4" IsEnabled="False"/>
+                        <TextBlock Text="Дата:"/>
+                        <CheckBox x:Name="minusCBox" Content="Списание" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="250,0,0,0"/>
                     </StackPanel>
 
-                    <TextBlock Margin="5,0,0,0">Название:</TextBlock>
-                    <TextBox Margin="0,0,0,5" x:Name="itemNameTBox"></TextBox>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical" Width="100" Margin="5">
-                            <TextBlock Margin="5,0,0,0">Ширина:</TextBlock>
-                            <TextBox Margin="0,0,0,5" x:Name="xValueTBox" PreviewTextInput="xValueTBox_PreviewTextInput"></TextBox>
-                            <TextBlock Margin="5,0,0,0" >Высота:</TextBlock>
-                            <TextBox Margin="0,0,0,5" x:Name="yValueTBox" PreviewTextInput="yValueTBox_PreviewTextInput"></TextBox>
-                            <TextBlock Margin="5,0,0,0">Длина:</TextBlock>
-                            <TextBox Margin="0,0,0,5" x:Name="zValueTBox" PreviewTextInput="zValueTBox_PreviewTextInput"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="20,0,0,0">
 
-                            <TextBlock HorizontalAlignment="Center">Изображение</TextBlock>
-                            <Image  Height="100" Width="150" Source="{Binding _image}" x:Name="imageItemImg"></Image>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="5" VerticalAlignment="Center">
-                            <Button Padding="5,0,5,0" Margin="5" x:Name="LoadImageBtn" Click="LoadImageBtn_Click" >Загрузить</Button>
-                            <Button Padding="5,0,5,0" Margin="5" x:Name="deletImageBtn" Click="deletImageBtn_Click">Удалить</Button>
-                        </StackPanel>
-                    </StackPanel>
+                    <DatePicker x:Name="recepiptDatePicer" IsEnabled="False"/>
+                    <TextBlock  Text="Пользователь:"/>
+                    <ComboBox  x:Name="userIdCBox"/>
 
-                    <TextBlock Margin="5,0,0,0">Описание:</TextBlock>
-
-                    <TextBox Margin="0,0,0,5" x:Name="descriptionTBox"/>
-                    <Button Content="Сохранить изменения" x:Name="saveInvetariumEditBtn" Click="saveInvetariumEditBtn_Click" Width="150"/>
-
-
+                    <TextBlock  Text="Количество:"/>
+                    <TextBox  Width="80" HorizontalAlignment="Left" x:Name="countTBox" PreviewTextInput="countTBox_PreviewTextInput"/>
 
                 </StackPanel>
 
             </StackPanel>
-            <Button Width ="120" Margin="3" x:Name="saveBtn" Click="saveBtn_Click">Сохранить</Button>
-
-
+            <Grid Background="Black" Height="2" Margin="0,10,0,10"/>
+            <Button  x:Name="saveBtn" Click="saveBtn_Click" Content="Сохранить" Margin="3,20,3,3"/>
         </StackPanel>
-
     </Grid>
 </Page>
